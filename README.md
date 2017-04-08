@@ -515,7 +515,7 @@ var result = UglifyJS.minify("compiled.js", {
 	inSourceMap: JSON.parse(my_source_map_string),
 	outSourceMap: "minified.js.map"
 });
-
+```
 只有在需要`outSourceMap`时， `inSourceMap` 才会被用到（否则就没用咯）。
 
 要设置sourcemap的url的话，请用 `sourceMapUrl`选项。
