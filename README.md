@@ -1,11 +1,15 @@
-# UglifyJS中文文档
-译序
------------
+UglifyJS中文文档
+----------------
+
 本文档译自[UglifyJS2文档](https://github.com/mishoo/UglifyJS2)。
 
-由于webpack本身集成了UglifyJS插件（webpack.optimize.UglifyJsPlugin），其命令`webpack -p`即表示调用UglifyJS来压缩代码，还有不少webpack插件如`html-webpack-plugin`也会默认使用UglifyJS。因此我们其实经常要用到它，但UglifyJS2本身配置较复杂/选项繁多，又没有中文文档，使用起来如坠云雾。鉴于此特翻译此文，谬误甚多，敬请斧正。转载请注明[出处](https://github.com/LiPinghai/UglifyJSDocCN)。
+**喜欢的话请收藏、给个赞/star吧！谢谢！**
 
-**喜欢的话请收藏、给个赞吧！谢谢！**
+转载请注明原文链接(https://github.com/LiPinghai/UglifyJSDocCN/blob/master/README.md)与作者信息。
+
+## 译序
+
+由于webpack本身集成了UglifyJS插件（webpack.optimize.UglifyJsPlugin），其命令`webpack -p`即表示调用UglifyJS来压缩代码，还有不少webpack插件如`html-webpack-plugin`也会默认使用UglifyJS。因此我们其实经常要用到它，但UglifyJS2本身配置较复杂/选项繁多，又没有中文文档，使用起来如坠云雾。鉴于此特翻译此文，谬误甚多，敬请斧正。
 
 词典：
 ```
@@ -34,7 +38,7 @@ UglifyJS 2
 
 UglifyJs 是一个js 解释器、最小化器、压缩器、美化器工具集（parser, minifier, compressor or beautifier toolkit）。
 
-这个网页是命令行使用的文档，要看API和内部文档请到[作者的网站](http://lisperator.net/uglifyjs/)。
+这个网页是命令行使用的文档，要看API和内部文档请到[UglifyJS作者的网站](http://lisperator.net/uglifyjs/)。
 另外还有个[在线demo](http://lisperator.net/uglifyjs/#demo)(FF、chrome，safari可能也行)
 
 #### Note:
@@ -516,6 +520,7 @@ var result = UglifyJS.minify("compiled.js", {
 	outSourceMap: "minified.js.map"
 });
 ```
+
 只有在需要`outSourceMap`时， `inSourceMap` 才会被用到（否则就没用咯）。
 
 要设置sourcemap的url的话，请用 `sourceMapUrl`选项。
