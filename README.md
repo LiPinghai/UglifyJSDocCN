@@ -5,7 +5,7 @@ UglifyJS中文文档
 
 **喜欢的话请收藏、给个赞/star吧！谢谢！**
 
-转载请注明原文链接(https://github.com/LiPinghai/UglifyJSDocCN/blob/master/README.md)与作者信息。
+转载请注明原文链接（https://github.com/LiPinghai/UglifyJSDocCN/blob/master/README.md）与作者信息。
 
 ## 译序
 
