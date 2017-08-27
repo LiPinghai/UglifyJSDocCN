@@ -1,7 +1,9 @@
 UglifyJS中文文档
 ----------------
 
-本文档译自[UglifyJS2文档](https://github.com/mishoo/UglifyJS2)。
+本文档译自[UglifyJS3文档](https://github.com/mishoo/UglifyJS2)。
+
+此前翻译的[UglifyJS2中文文档](https://github.com/LiPinghai/UglifyJSDocCN/tree/UglifyJs2)已挪到本项目UglifyJS2分支。
 
 **喜欢的话请收藏、给个赞/star吧！谢谢！**
 
@@ -33,17 +35,19 @@ side effects函数副作用，即函数除了返回外还产生别的作用，�
 
 以下为正文：
 
-UglifyJS 2
+UglifyJS 3
 ==========
 
-UglifyJs 是一个js 解释器、最小化器、压缩器、美化器工具集（parser, minifier, compressor or beautifier toolkit）。
+UglifyJS 是一个js 解释器、最小化器、压缩器、美化器工具集（parser, minifier, compressor or beautifier toolkit）。
 
 这个网页是命令行使用的文档，要看API和内部文档请到[UglifyJS作者的网站](http://lisperator.net/uglifyjs/)。
 另外还有个[在线demo](http://lisperator.net/uglifyjs/#demo)(FF、chrome，safari可能也行)
 
-#### Note:
-- `uglify-js`的发行版本只支持ES5，如果你要压缩ES6+代码请使用[兼容](#harmony)开发分支
--  Node7有个已知的性能倒退问题——运行`uglify-js`两次导致很慢
+#### 注意:
+- **`uglify-js@3` 的[API](#api-reference) 和 [CLI](#command-line-usage)已简化，不再向后兼容 [`uglify-js@2`](https://github.com/mishoo/UglifyJS2/tree/v2.x)**.
+- **UglifyJS `2.x` 文档在[这里](https://github.com/mishoo/UglifyJS2/tree/v2.x)**.
+- `uglify-js` 只支持 ECMAScript 5 (ES5).
+- 假如希望压缩 ES2015+ (ES6+)代码，应该使用 [**uglify-es**](https://github.com/mishoo/UglifyJS2/tree/harmony)这个`npm` 包。 
 
 安装
 -------
@@ -58,29 +62,62 @@ npm install uglify-js -g
 ```
 npm install uglify-js
 ```
-用Git下载：
-```
-git clone git://github.com/mishoo/UglifyJS2.git
-cd UglifyJS2
-npm link 
-```
 
-使用
-------
+
+#CLI使用
+
 ```
  uglifyjs [input files] [options]
 ```
 
-UglifyJS2可以输入多文件。建议你先写输入文件，再传选项。UglifyJS会根据压缩选项，把文件放在队列中依次解释。所有文件都会在同一个全局域中，假如一个文件中的变量、方法被另一文件引用，UglifyJS会合理地匹配。
+UglifyJS可以输入多文件。建议你先写输入文件，再传选项。UglifyJS会根据压缩选项，把文件放在队列中依次解释。所有文件都会在同一个全局域中，假如一个文件中的变量、方法被另一文件引用，UglifyJS会合理地匹配。
 
-假如你不要输入文件，而是要输入字符串（STDIN），那就把文件名换成一个横线（-）
+假如没有指定文件，UglifyJS会读取输入字符串（STDIN）。
 
 如果你想要把选项写在文件名的前面，那要在二者之前加上双横线，防止文件名被当成了选项：
 ```
  uglifyjs --compress --mangle -- input.js
 ```
-以下是可用的选项：
+### CLI选项：
 ```
+  -h, --help                  列出使用指南。
+                              `--help options` 获取可用选项的详情。
+  -V, --version               打印版本号。
+  -p, --parse <options>       指定解析器配置选项:
+                              `acorn`  使用 Acorn 来解析。
+                              `bare_returns`  允许在函数外return。
+                                              在压缩CommonJS模块或`.user.js `引擎调用被同步执行函数包裹的用户脚本 时会用到。
+                              `expression`  不是解析文件，二是解析一段表达式 (例如解析JSON).
+                              `spidermonkey`  输入文件是 SpiderMonkey
+                                              AST 格式 (JSON).
+  -c, --compress [options]    启用压缩（true/false）/指定压缩配置:
+                              `pure_funcs`  传一个函数名的列表，当这些函数返回值没被利用时，该函数会被安全移除。
+  -m, --mangle [options]       启用混淆（true/false）/指定混淆配置:
+                              `reserved`  不被混淆的名字列表。
+  --mangle-props [options]    混淆属性/指定压缩配置:
+                              `builtins`  Mangle property names that overlaps
+                                          with standard JavaScript globals.
+                              `debug`  Add debug prefix and suffix.
+                              `domprops`  Mangle property names that overlaps
+                                          with DOM properties.
+                              `keep_quoted`  Only mangle unquoted properies.
+                              `regex`  Only mangle matched property names.
+                              `reserved`  List of names that should not be mangled.
+  -b, --beautify [options]    Beautify output/specify output options:
+                              `beautify`  Enabled with `--beautify` by default.
+                              `preamble`  Preamble to prepend to the output. You
+                                          can use this to insert a comment, for
+                                          example for licensing information.
+                                          This will not be parsed, but the source
+                                          map will adjust for its presence.
+                              `quote_style`  Quote style:
+                                              0 - auto
+                                              1 - single
+                                              2 - double
+                                              3 - original
+                              `wrap_iife`  Wrap IIFEs in parenthesis. Note: you may
+                                            want to disable `negate_iife` under
+                                            compressor options.     
   --source-map                  指定输出的文件产生一份sourcemap 
   --source-map-root             此路径中的源码编译后会产生sourcemap
   --source-map-url              放在//#sourceMappingURL的sourcemap路径.  默认是 
