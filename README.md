@@ -655,7 +655,7 @@ UglifyJS.minify(code, { mangle: { toplevel: true } }).code;
 
 - `ascii_only` (default `false`) -- 忽略字符串和正则（导致非ascii字符失效）中的Unicode字符。
 - `beautify` (default `true`) -- 是否美化输出代码。传`-b`的话就是设成true。假如你想生成最小化的代码同时又要用其他设置来美化代码，你可以设`-b beautify=false`。
-- `bracketize` (default `false`) -- 永远在`if`, `for`,`do`, `while`, `with`后面加上大括号，即使循环体只有一句。
+- `braces` (default `false`) -- 永远在`if`, `for`,`do`, `while`, `with`后面加上大括号，即使循环体只有一句。
 - `comments` (default `false`) -- 传 `true` 或 `"all"`保留全部注释,传 `"some"`保留部分，传正则 (例如 `/^!/`) 或者函数也行。
 - `indent_level` (default 4) 缩进格数
 - `indent_start` (default 0) -- 每行前面加几个空格
